@@ -442,50 +442,82 @@
           </div>
           <div class="card-grid cols-4">
             <article class="card glass">
-              <img
-                class="team-photo"
-                src="assets/team/member-01.jpg"
-                width="400"
-                height="400"
-                alt="Portrait of CEO &amp; Co-founder"
-              />
-              <h3 class="font-display" style="margin-top: 1.25rem">Founder name</h3>
+              <a
+                class="team-link"
+                href="https://www.linkedin.com/in/sanam-dabirian/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Sanam Dabirian on LinkedIn (opens in a new tab)"
+              >
+                <img
+                  class="team-photo"
+                  src="assets/team/member-01.jpg"
+                  width="400"
+                  height="400"
+                  alt=""
+                />
+                <h3 class="font-display" style="margin-top: 1.25rem">Sanam Dabirian</h3>
+              </a>
               <p style="margin-top: 0.25rem; font-size: 0.875rem; color: hsl(var(--primary))">CEO &amp; Co-founder</p>
               <p class="muted" style="margin-top: 0.5rem; font-size: 0.875rem">Strategy, fundraising, partnerships.</p>
             </article>
             <article class="card glass">
-              <img
-                class="team-photo"
-                src="assets/team/member-02.jpg"
-                width="400"
-                height="400"
-                alt="Portrait of CTO &amp; Co-founder"
-              />
-              <h3 class="font-display" style="margin-top: 1.25rem">Founder name</h3>
+              <a
+                class="team-link"
+                href="https://www.linkedin.com/in/shahin-masoumi-verki-326b41116"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Shahin Masoumi on LinkedIn (opens in a new tab)"
+              >
+                <img
+                  class="team-photo"
+                  src="assets/team/member-02.jpg"
+                  width="400"
+                  height="400"
+                  alt=""
+                />
+                <h3 class="font-display" style="margin-top: 1.25rem">Shahin Masoumi</h3>
+              </a>
               <p style="margin-top: 0.25rem; font-size: 0.875rem; color: hsl(var(--primary))">CTO &amp; Co-founder</p>
               <p class="muted" style="margin-top: 0.5rem; font-size: 0.875rem">AI architecture and digital twins.</p>
             </article>
             <article class="card glass">
-              <img
-                class="team-photo"
-                src="assets/team/member-03.jpg"
-                width="400"
-                height="400"
-                alt="Portrait of Chief Scientist"
-              />
-              <h3 class="font-display" style="margin-top: 1.25rem">Founder name</h3>
+              <a
+                class="team-link"
+                href="https://www.linkedin.com/in/ali-reza-daneshvar-garmroodi-910ba4194"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Alireza Daneshvar on LinkedIn (opens in a new tab)"
+              >
+                <img
+                  class="team-photo"
+                  src="assets/team/member-03.jpg"
+                  width="400"
+                  height="400"
+                  alt=""
+                />
+                <h3 class="font-display" style="margin-top: 1.25rem">Alireza Daneshvar</h3>
+              </a>
               <p style="margin-top: 0.25rem; font-size: 0.875rem; color: hsl(var(--primary))">Chief Scientist</p>
               <p class="muted" style="margin-top: 0.5rem; font-size: 0.875rem">Physics-informed ML and building science.</p>
             </article>
             <article class="card glass">
-              <img
-                class="team-photo"
-                src="assets/team/member-04.jpg"
-                width="400"
-                height="400"
-                alt="Portrait of Head of Engineering"
-              />
-              <h3 class="font-display" style="margin-top: 1.25rem">Founder name</h3>
+              <a
+                class="team-link"
+                href="https://www.linkedin.com/in/mohamadkermani/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Mohammad Kermani on LinkedIn (opens in a new tab)"
+              >
+                <img
+                  class="team-photo"
+                  src="assets/team/member-04.jpg"
+                  width="400"
+                  height="400"
+                  alt=""
+                />
+                <h3 class="font-display" style="margin-top: 1.25rem">Mohammad Kermani</h3>
+              </a>
               <p style="margin-top: 0.25rem; font-size: 0.875rem; color: hsl(var(--primary))">Head of Engineering</p>
               <p class="muted" style="margin-top: 0.5rem; font-size: 0.875rem">Platform, deployment and integrations.</p>
             </article>
@@ -513,7 +545,20 @@
                   <li>Engineers — we're hiring</li>
                 </ul>
               </div>
-              <form id="contact-form" class="glass" style="padding: 1.5rem; border-radius: 1rem">
+              <form
+                id="contact-form"
+                class="glass"
+                style="padding: 1.5rem; border-radius: 1rem"
+                method="post"
+                action="https://formsubmit.co/kermani_mohammad@hotmail.com"
+                novalidate
+              >
+                <input type="hidden" name="_subject" value="HomaDynamics — Website contact" />
+                <input type="hidden" name="_captcha" value="false" />
+                <div class="sr-only" aria-hidden="true">
+                  <label for="contact-honey">Do not fill</label>
+                  <input id="contact-honey" name="_honey" type="text" tabindex="-1" autocomplete="off" value="" />
+                </div>
                 <div class="form-field">
                   <label for="name">Name</label>
                   <input id="name" name="name" type="text" required placeholder="Jane Investor" autocomplete="name" />
