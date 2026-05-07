@@ -27,6 +27,8 @@
 
   var CONTACT_EMAIL = "kermani_mohammad@hotmail.com";
   var CONTACT_FORM_ACTION = "https://formsubmit.co/ajax/" + CONTACT_EMAIL;
+  var CONTACT_SUBJECT = "HomaDynamics.com — Contact form submission";
+  var CONTACT_TIMEZONE = "America/New_York";
 
   var form = document.getElementById("contact-form");
   var statusEl = document.getElementById("form-status");
@@ -34,13 +36,57 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var submitBtn = form.querySelector('button[type="submit"]');
+      statusEl.textContent = "";
+
+      var nameEl = form.querySelector("#name");
+      var emailEl = form.querySelector("#email");
+      var messageEl = form.querySelector("#message");
+
+      var name = nameEl && nameEl.value ? nameEl.value.trim() : "";
+      var email = emailEl && emailEl.value ? emailEl.value.trim() : "";
+      var message = messageEl && messageEl.value ? messageEl.value.trim() : "";
+
+      var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+
+      if (!name) {
+        statusEl.textContent = "Please enter your name.";
+        if (nameEl) nameEl.focus();
+        return;
+      }
+
+      if (!email || !emailOk) {
+        statusEl.textContent = "Please enter a valid email address.";
+        if (emailEl) emailEl.focus();
+        return;
+      }
+
+      if (!message || message.length < 2) {
+        statusEl.textContent = "Message must be at least 2 characters.";
+        if (messageEl) messageEl.focus();
+        return;
+      }
+
       statusEl.textContent = "Sending…";
       if (submitBtn) submitBtn.disabled = true;
 
       var fd = new FormData(form);
-      fd.set("_subject", "HomaDynamics — Website contact");
+      fd.set("_subject", CONTACT_SUBJECT);
       fd.set("_replyto", form.querySelector("#email").value);
       fd.set("_captcha", "false");
+      fd.set(
+        "Submitted at (EST)",
+        new Intl.DateTimeFormat("en-US", {
+          timeZone: CONTACT_TIMEZONE,
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+          timeZoneName: "short",
+        }).format(new Date())
+      );
 
       fetch(CONTACT_FORM_ACTION, {
         method: "POST",

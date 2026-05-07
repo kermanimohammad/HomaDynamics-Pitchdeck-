@@ -143,7 +143,7 @@
             </article>
             <article class="card glass">
               <div class="top-line"></div>
-              <div class="big-stat text-gradient-primary">?</div>
+              <div class="big-stat text-gradient-primary">Unverified</div>
               <h3 class="font-display">No trustworthy, auditable optimization</h3>
               <p>
                 Operators and owners don't trust black-box AI controlling their critical infrastructure. The market
@@ -274,7 +274,6 @@
                 optimal setpoints — safely and explainably.
               </p>
               <ul class="checks">
-                <li>MPC + reinforcement learning</li>
                 <li>Comfort &amp; safety guardrails</li>
                 <li>Closed-loop or advisory</li>
               </ul>
@@ -553,7 +552,7 @@
                 action="https://formsubmit.co/kermani_mohammad@hotmail.com"
                 novalidate
               >
-                <input type="hidden" name="_subject" value="HomaDynamics — Website contact" />
+                <input type="hidden" name="_subject" value="HomaDynamics.com — Contact form submission" />
                 <input type="hidden" name="_captcha" value="false" />
                 <div class="sr-only" aria-hidden="true">
                   <label for="contact-honey">Do not fill</label>
@@ -569,7 +568,14 @@
                 </div>
                 <div class="form-field">
                   <label for="message">Message</label>
-                  <textarea id="message" name="message" rows="5" required placeholder="Tell us a little about your interest..."></textarea>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    required
+                    minlength="2"
+                    placeholder="Tell us a little about your interest..."
+                  ></textarea>
                 </div>
                 <button type="submit" class="btn-primary" style="width: 100%; margin-top: 0.5rem; justify-content: center">
                   Send message <span aria-hidden="true">→</span>
