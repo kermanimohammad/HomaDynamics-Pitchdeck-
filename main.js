@@ -99,12 +99,16 @@
           });
         })
         .then(function (result) {
-          if (result.ok) {
+          var data = result.data || {};
+          var sent =
+            result.ok && (data.success === true || data.success === "true");
+          if (sent) {
             statusEl.textContent = "Thanks — we'll get back to you within 48 hours.";
             form.reset();
           } else {
             var msg =
-              (result.data && (result.data.message || result.data.error)) ||
+              data.message ||
+              data.error ||
               "Could not send. Please try again or email " + CONTACT_EMAIL + " directly.";
             statusEl.textContent = msg;
           }
