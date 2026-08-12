@@ -64,28 +64,54 @@
         return;
       }
 
-      statusEl.textContent = "Opening email app…";
+      var key = window.__HOMADYNAMICS_WEB3FORMS_KEY__;
+      if (!key) {
+        statusEl.textContent =
+          "Could not send. Please email " + CONTACT_EMAIL + " directly.";
+        return;
+      }
+
+      statusEl.textContent = "Sending…";
       if (submitBtn) submitBtn.disabled = true;
 
-      try {
-        var subject = encodeURIComponent(CONTACT_SUBJECT);
-        var body = encodeURIComponent(
-          "Name: " + name + "\nEmail: " + email + "\n\n" + message
-        );
-        window.location.href =
-          "mailto:" + CONTACT_EMAIL + "?subject=" + subject + "&body=" + body;
-        statusEl.textContent =
-          "Send the message to " + CONTACT_EMAIL + " from your email app.";
-        form.reset();
-      } catch (err) {
-        statusEl.textContent =
-          "Could not open email app. Please email " + CONTACT_EMAIL + " directly.";
-      } finally {
-        if (submitBtn) submitBtn.disabled = false;
-        setTimeout(function () {
-          statusEl.textContent = "";
-        }, 10000);
-      }
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: key,
+          name: name,
+          email: email,
+          message: message,
+          subject: CONTACT_SUBJECT,
+          from_name: "HomaDynamics website",
+        }),
+      })
+        .then(function (res) {
+          return res.json();
+        })
+        .then(function (data) {
+          if (data && data.success) {
+            statusEl.textContent = "Thanks — we'll get back to you within 48 hours.";
+            form.reset();
+          } else {
+            statusEl.textContent =
+              (data && data.message) ||
+              "Could not send. Please email " + CONTACT_EMAIL + " directly.";
+          }
+        })
+        .catch(function () {
+          statusEl.textContent =
+            "Network error. Please try again or email " + CONTACT_EMAIL + " directly.";
+        })
+        .finally(function () {
+          if (submitBtn) submitBtn.disabled = false;
+          setTimeout(function () {
+            statusEl.textContent = "";
+          }, 10000);
+        });
     });
   }
 })();
