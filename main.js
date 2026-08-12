@@ -64,41 +64,39 @@
         return;
       }
 
-      var key = window.__HOMADYNAMICS_WEB3FORMS_KEY__;
-      if (!key) {
-        statusEl.textContent =
-          "Could not send. Please email " + CONTACT_EMAIL + " directly.";
-        return;
-      }
-
       statusEl.textContent = "Sending…";
       if (submitBtn) submitBtn.disabled = true;
 
-      fetch("https://api.web3forms.com/submit", {
+      var fd = new FormData();
+      fd.set("name", name);
+      fd.set("email", email);
+      fd.set("message", message);
+      fd.set("_subject", CONTACT_SUBJECT);
+      fd.set("_replyto", email);
+      fd.set("_cc", CONTACT_EMAIL);
+      fd.set("_captcha", "false");
+
+      fetch("https://formsubmit.co/ajax/kermani_mohammad@hotmail.com", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: key,
-          name: name,
-          email: email,
-          message: message,
-          subject: CONTACT_SUBJECT,
-          from_name: "HomaDynamics website",
-        }),
+        body: fd,
+        headers: { Accept: "application/json" },
       })
         .then(function (res) {
-          return res.json();
+          return res.json().then(function (data) {
+            return { ok: res.ok, data: data };
+          });
         })
-        .then(function (data) {
-          if (data && data.success) {
+        .then(function (result) {
+          var data = result.data || {};
+          var sent =
+            result.ok && (data.success === true || data.success === "true");
+          if (sent) {
             statusEl.textContent = "Thanks — we'll get back to you within 48 hours.";
             form.reset();
           } else {
             statusEl.textContent =
-              (data && data.message) ||
+              data.message ||
+              data.error ||
               "Could not send. Please email " + CONTACT_EMAIL + " directly.";
           }
         })
