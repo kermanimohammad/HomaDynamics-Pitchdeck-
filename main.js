@@ -26,9 +26,7 @@
   }
 
   var CONTACT_EMAIL = "info@homadynamics.com";
-  var CONTACT_FORM_ACTION = "https://formsubmit.co/ajax/" + CONTACT_EMAIL;
   var CONTACT_SUBJECT = "HomaDynamics.com — Contact form submission";
-  var CONTACT_TIMEZONE = "America/New_York";
 
   var form = document.getElementById("contact-form");
   var statusEl = document.getElementById("form-status");
@@ -66,63 +64,28 @@
         return;
       }
 
-      statusEl.textContent = "Sending…";
+      statusEl.textContent = "Opening email app…";
       if (submitBtn) submitBtn.disabled = true;
 
-      var fd = new FormData(form);
-      fd.set("_subject", CONTACT_SUBJECT);
-      fd.set("_replyto", form.querySelector("#email").value);
-      fd.set("_captcha", "false");
-      fd.set(
-        "Submitted at (EST)",
-        new Intl.DateTimeFormat("en-US", {
-          timeZone: CONTACT_TIMEZONE,
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: false,
-          timeZoneName: "short",
-        }).format(new Date())
-      );
-
-      fetch(CONTACT_FORM_ACTION, {
-        method: "POST",
-        body: fd,
-        headers: { Accept: "application/json" },
-      })
-        .then(function (res) {
-          return res.json().then(function (data) {
-            return { ok: res.ok, data: data };
-          });
-        })
-        .then(function (result) {
-          var data = result.data || {};
-          var sent =
-            result.ok && (data.success === true || data.success === "true");
-          if (sent) {
-            statusEl.textContent = "Thanks — we'll get back to you within 48 hours.";
-            form.reset();
-          } else {
-            var msg =
-              data.message ||
-              data.error ||
-              "Could not send. Please try again or email " + CONTACT_EMAIL + " directly.";
-            statusEl.textContent = msg;
-          }
-        })
-        .catch(function () {
-          statusEl.textContent =
-            "Network error. Please try again or email " + CONTACT_EMAIL + " directly.";
-        })
-        .finally(function () {
-          if (submitBtn) submitBtn.disabled = false;
-          setTimeout(function () {
-            statusEl.textContent = "";
-          }, 10000);
-        });
+      try {
+        var subject = encodeURIComponent(CONTACT_SUBJECT);
+        var body = encodeURIComponent(
+          "Name: " + name + "\nEmail: " + email + "\n\n" + message
+        );
+        window.location.href =
+          "mailto:" + CONTACT_EMAIL + "?subject=" + subject + "&body=" + body;
+        statusEl.textContent =
+          "Send the message to " + CONTACT_EMAIL + " from your email app.";
+        form.reset();
+      } catch (err) {
+        statusEl.textContent =
+          "Could not open email app. Please email " + CONTACT_EMAIL + " directly.";
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        setTimeout(function () {
+          statusEl.textContent = "";
+        }, 10000);
+      }
     });
   }
 })();
