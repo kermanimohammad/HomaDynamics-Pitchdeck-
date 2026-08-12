@@ -25,7 +25,7 @@
     });
   }
 
-  var CONTACT_EMAIL = "kermani_mohammad@hotmail.com";
+  var CONTACT_EMAIL = "info@homadynamics.com";
   var CONTACT_FORM_ACTION = "https://formsubmit.co/ajax/" + CONTACT_EMAIL;
   var CONTACT_SUBJECT = "HomaDynamics.com — Contact form submission";
   var CONTACT_TIMEZONE = "America/New_York";
